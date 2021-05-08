@@ -40,7 +40,8 @@ public class ShopUserService extends BaseService<ShopUser,Long,ShopUserRepositor
     }
 
     public boolean  sendSmsCode(String mobile) {
-        String smsCode = RandomUtil.getRandomNumber(4);
+        //String smsCode = RandomUtil.getRandomNumber(4);
+        String smsCode = "1111";
         String key =  mobile+"_smsCode";
         String timesKey = key+"_times";
         String oldSmsCode = (String) cacheDao.hget(CacheDao.MINUTE,key);
@@ -69,7 +70,8 @@ public class ShopUserService extends BaseService<ShopUser,Long,ShopUserRepositor
      * @return
      */
     public String  sendSmsCodeForTest(String mobile) {
-        String smsCode = RandomUtil.getRandomNumber(4);
+        //String smsCode = RandomUtil.getRandomNumber(4);
+        String smsCode = "1111";
         String key =  mobile+"_smsCode";
         String timesKey = key+"_times";
         String oldSmsCode = (String) cacheDao.hget(CacheDao.MINUTE,key);
@@ -91,7 +93,8 @@ public class ShopUserService extends BaseService<ShopUser,Long,ShopUserRepositor
     //todo 该方法仅作测试环境使用
     public String sendSmsCodeForOldMobile(String mobile) {
 
-        String smsCode = RandomUtil.getRandomNumber(4);
+        //String smsCode = RandomUtil.getRandomNumber(4);
+        String smsCode = "1111";
         cacheDao.hset(CacheDao.SESSION,mobile+"_smsCode",smsCode);
         HttpUtil.getRequest().getSession().setAttribute(mobile+"_smsCode",smsCode);
         return smsCode;
