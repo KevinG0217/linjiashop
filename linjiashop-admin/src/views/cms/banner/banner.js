@@ -1,11 +1,12 @@
-import { remove, getList, save } from '@/api/cms/banner'
+import {remove, getList, save} from '@/api/cms/banner'
 import categoryApi from '@/api/shop/category'
-import { getToken } from '@/utils/auth'
-import { Loading } from 'element-ui'
-import { getApiUrl } from '@/utils/utils'
+import {getToken} from '@/utils/auth'
+import {Loading} from 'element-ui'
+import {getApiUrl} from '@/utils/utils'
 import permission from '@/directive/permission/index.js'
+
 export default {
-  directives: { permission },
+  directives: {permission},
   data() {
     return {
       uploadUrl: '',
@@ -19,11 +20,11 @@ export default {
       deptList: [],
       isAdd: true,
       options: [
-        { label: '首页', value: 'index' },
-        { label: '新闻', value: 'news' },
-        { label: '产品', value: 'product' },
-        { label: '解决方案', value: 'solution' },
-        { label: '案例', value: 'case' }
+        {label: '首页', value: 'index'},
+        {label: '新闻', value: 'news'},
+        {label: '产品', value: 'product'},
+        {label: '解决方案', value: 'solution'},
+        {label: '案例', value: 'case'}
       ],
       form: {
         id: '',
@@ -40,10 +41,10 @@ export default {
       list: null,
       listLoading: true,
       selRow: {},
-      shopCategory:{
-        id:undefined,
-        show:false,
-        disabled:true
+      shopCategory: {
+        id: undefined,
+        show: false,
+        disabled: true
       }
     }
   },
@@ -51,7 +52,13 @@ export default {
     rules() {
       return {
         title: [
-          { required: true, message: '标题不能为空', trigger: 'blur' }
+          {required: true, message: '标题不能为空', trigger: 'blur'}
+        ],
+        page: [
+          {required: true, message: '界面不能为空', trigger: 'blur'}
+        ],
+        type: [
+          {required: true, message: '类型不能为空', trigger: 'blur'}
         ]
       }
     }
@@ -65,7 +72,7 @@ export default {
       this.uploadUrl = getApiUrl() + '/file'
       this.uploadHeaders['Authorization'] = getToken()
       this.fetchData()
-      if(this.shopCategory.id){
+      if (this.shopCategory.id) {
         this.shopCategory.show = true
       }
     },
@@ -145,12 +152,12 @@ export default {
       })
       return false
     },
-    clickRow(row){
-      this.shopCategory.disabled=false
+    clickRow(row) {
+      this.shopCategory.disabled = false
       this.shopCategory.idBanner = row.id
     },
-    setBanner(){
-      if( this.shopCategory.idBanner) {
+    setBanner() {
+      if (this.shopCategory.idBanner) {
         categoryApi.setCategoryBanner(this.shopCategory.id, this.shopCategory.idBanner).then(response => {
           this.$message({
             message: '设置成功',
@@ -158,7 +165,7 @@ export default {
           })
           this.shopCategory.disabled = true
         })
-      }else{
+      } else {
         this.$message({
           message: '请先选中要设置的banner',
           type: 'warning'
